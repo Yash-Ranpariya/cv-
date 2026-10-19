@@ -1,0 +1,39 @@
+# Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Ultralytics & Model weights
+yolov8n.pt
+yolov8*.pt
+yolo11*.pt
+runs/
+.ultralytics/
+
+# Large media files (Share via Google Drive as per assignment instructions)
+dataset/*.mp4
+dataset/*.avi
+dataset/*.mov
+dataset/*.mkv
+*.mp4
+*.avi
+*.mov
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# AI Coding Environment / Antigravity
+.gemini/
+.system_generated/
