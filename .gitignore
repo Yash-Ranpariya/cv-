@@ -35,6 +35,7 @@ Thumbs.db
 *.swp
 *.swo
 
-# AI Coding Environment / Antigravity
+# Zips
+*.zip
 .gemini/
 .system_generated/
