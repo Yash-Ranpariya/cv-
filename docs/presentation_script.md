@@ -1,128 +1,145 @@
-# CCA 3 Computer Vision Assignment — 5 to 8 Minute Presentation Script
-
-This script is designed for your **5–8 minute project explanation video** required for the CCA 3 assignment submission. It uses clear, natural English that is easy to speak and demonstrates deep conceptual understanding for an MCA student.
-
----
-
-## Video Recording Tips Before You Start:
-1. **Screen + Webcam**: Use a tool like OBS Studio, Zoom (start a meeting with yourself and record), or Loom so your face and screen are both visible.
-2. **Audio**: Use headphones or a quiet room so your voice is crisp and clear.
-3. **Folders Ready**: Have your VS Code editor open with the code and the `outputs/` folder containing your generated figures.
-4. **Time Allocation**:
-   - Introduction & Dataset: ~1 minute
-   - Task 1 (Restoration & Segmentation): ~1.5 minutes
-   - Task 2 (Feature Extraction & SIFT): ~1.5 minutes
-   - Task 3 (Viola-Jones vs YOLO): ~1.5 minutes
-   - Task 4 (Video Motion Estimation): ~1.5 minutes
-   - Conclusion & Wrap-up: ~30 seconds
+# CCA 3 — Computer Vision | Video Presentation Script
+### Student: **Yash Ranpariya** | PRN: **272251066**
+### Course: MCA | MIT World Peace University, Pune | Faculty: Prof. Rahul Inchal
 
 ---
 
-## [0:00 – 1:00] Slide / Section 1: Introduction & Dataset
-
-**What to show on screen:**
-*Show the title page of your report or your VS Code workspace with `main.py` open.*
-
-**What to say:**
-> *"Hello respected faculty and evaluators. My name is [YOUR NAME], Roll Number [YOUR ROLL NUMBER], studying Master of Computer Applications (MCA) at MIT World Peace University, Pune.*
->
-> *Today, I am presenting my practical coding assignment for Continuous Assessment 3 in Computer Vision, covering Units 3, 4, and 5 under the mentorship of Prof. Rahul Inchal.*
->
-> *For this assignment, I captured my own original dataset without using any internet stock photos. As you can see in my dataset folder, I have:*
-> 1. *`original_photo.jpg`: An unedited high-resolution photograph of [describe your scene, e.g., my study desk with laptop and books].*
-> 2. *`second_photo.jpg`: A second photograph of the exact same scene taken from a different perspective for feature matching.*
-> 3. *`original_video.mp4`: A self-recorded 20-second video with moving objects and a steady camera.*
->
-> *Let us now explore the implementation and results for each of the four assigned tasks."*
+## ⏱️ Video Overview & Time Allocation
+- **Target Duration**: 6 to 8 minutes
+- **Recording Setup**: Screen + Webcam recording (OBS Studio, Zoom, or Loom)
+- **Audio**: Quiet environment with crisp microphone
 
 ---
 
-## [1:00 – 2:30] Slide / Section 2: Task 1 — Image Restoration and Segmentation
+## 🎬 [0:00 – 1:00] Section 1: Introduction & Dataset
 
-**What to show on screen:**
-*Open `outputs/task1_restoration_segmentation/fig4_comprehensive_restoration_grid.png` and `fig8_watershed_segmentation_pipeline.png`.*
+**📺 What to show on screen:**
+Open `main.py` in VS Code, and show the `dataset/` folder in the explorer sidebar.
 
-**What to say:**
-> *"In Task 1, our goal is two-fold: restoring degraded images and segmenting objects.*
+**🗣️ Spoken Script:**
+> "Hello, respected faculty and evaluators.
 >
-> *First, for Image Restoration, I introduced two distinct noise models: Additive White Gaussian Noise, which simulates electronic sensor thermal noise, and Salt-and-Pepper impulse noise, which simulates transmission bit errors.*
+> My name is **Yash Ranpariya**, PRN **272251066**, studying Master of Computer Applications at MIT World Peace University, Pune.
 >
-> *I applied two restoration filters: a 2D linear Gaussian filter and a non-linear Median filter.*
+> Today, I am presenting my Continuous Assessment 3 (CCA 3) practical coding assignment in Computer Vision, covering **Units 3, 4, and 5**, under the guidance of **Prof. Rahul Inchal**.
 >
-> *Looking at our quantitative evaluation table:*
-> - *On Gaussian noise, the Gaussian filter smoothed high frequencies, reaching a PSNR of 25.32 dB.*
-> - *However, on Salt-and-Pepper noise, the Gaussian filter failed because it linearly averaged the extreme black and white spikes into blurry patches, giving only 23.91 dB.*
-> - *In contrast, the Median filter achieved an outstanding PSNR of 32.41 dB and an SSIM of 0.9935. Why? Because the median filter sorts the local pixel neighborhood and selects the middle rank value. Extreme outlier values—0 and 255—fall at the far tails of the sorted list and get completely rejected, leaving clean, sharp edges.*
+> For this assignment, I captured my own original media files without relying on stock or downloaded images:
+> 1. `original_photo.jpg` — my primary photograph used for image restoration, feature extraction, and object recognition.
+> 2. `second_photo.jpg` — a second photograph of the same scene captured from a different perspective for feature matching.
+> 3. `original_video.mp4` — my 15-second self-recorded video clip with moving foreground for motion estimation.
 >
-> *Second, for Segmentation, I converted the image to grayscale and applied Otsu’s automatic thresholding to maximize between-class variance. To separate touching objects, I used morphological erosion and dilation, followed by distance-transform marker-controlled watershed segmentation. This prevented oversegmentation and accurately isolated touching boundaries, as highlighted in red on screen."*
+> The codebase is organized into modular Python files inside `src/`, automated tests inside `tests/`, and all generated visualizations in `outputs/`.
+>
+> Let us begin with Task 1."
 
 ---
 
-## [2:30 – 4:00] Slide / Section 3: Task 2 — Feature Extraction and Matching
+## 🎬 [1:00 – 2:30] Section 2: Task 1 — Image Restoration & Segmentation (Unit 3)
 
-**What to show on screen:**
-*Open `outputs/task2_feature_extraction/fig1_hog_visualization.png` and `fig3_matching_comparison_summary.png`.*
+**📺 What to show on screen:**
+Open `outputs/task1_restoration_segmentation/fig4_comprehensive_restoration_grid.png` and `fig8_watershed_segmentation_pipeline.png`.
 
-**What to say:**
-> *"Moving to Unit 4 and Task 2: Feature Extraction and Image Matching.*
+**🗣️ Spoken Script:**
+> "Task 1 addresses two fundamental problems: degraded image reconstruction and object boundary segmentation.
 >
-> *Here, I implemented two major feature representations:*
-> 1. *Histogram of Oriented Gradients (HOG): HOG captures edge and corner structures by computing 9-bin gradient orientation histograms within 8x8 pixel cells, normalized across 2x2 blocks. On screen, you can see the vibrant directional vector field highlighting dominant structural contours.*
-> 2. *Scale-Invariant Feature Transform (SIFT): SIFT identifies local scale-space extrema in Difference-of-Gaussians space, filters unstable edge points, assigns a canonical dominant orientation, and extracts a 128-dimensional descriptor vector.*
+> **Part A: Image Restoration:**
+> I degraded the photograph using two distinct noise formulations:
+> 1. Additive White Gaussian Noise (AWGN) with sigma 25, simulating electronic sensor thermal noise.
+> 2. Salt-and-Pepper impulse noise with 3% probability, simulating transmission bit corruption.
 >
-> *To test SIFT's matching capability, I matched keypoints between `original_photo.jpg` and `second_photo.jpg` using Lowe's Ratio Test with a threshold of 0.75, backed by RANSAC homography estimation.*
+> To restore the image, I implemented both a linear 2D Gaussian filter and a non-linear Median filter.
 >
-> *Then, I performed an affine stress experiment: I rotated the second photograph by 35 degrees and scaled it down to 0.8x.*
+> Looking at our quantitative evaluation:
+> - On Gaussian noise, the Gaussian filter smoothed high-frequency variance, achieving a PSNR of **28.82 dB** and SSIM of **0.7405**.
+> - On Salt-and-Pepper noise, the Gaussian filter failed because it linearly averaged the extreme 0 and 255 outliers into blurry patches, yielding only 26.67 dB.
+> - In contrast, the Median filter achieved an outstanding PSNR of **31.31 dB** and SSIM of **0.8949**. This is because the median operation sorts the local neighborhood; extreme salt and pepper spikes fall at the far tails of the sorted list and get completely rejected, leaving edges crisp.
 >
-> *As shown in our comparative montage, SIFT successfully maintained valid geometric matches even after severe rotation and scaling. Because SIFT aligns its descriptor to the local gradient peak and selects features across a continuous scale pyramid, it is inherently invariant to image rotation and scale changes."*
+> **Part B: Morphological Operations and Segmentation:**
+> Next, I converted the image to grayscale and applied Otsu's thresholding to automatically maximize inter-class variance.
+>
+> I then applied morphological operations:
+> - **Erosion** to strip outer boundaries and eliminate small specks.
+> - **Dilation** to bridge small gaps.
+> - **Opening and Closing** to clean the masks.
+>
+> Finally, I computed the Euclidean Distance Transform to extract sure foreground seeds and executed marker-controlled **Watershed Segmentation**, preventing oversegmentation and isolating touching regions with red boundary contours."
 
 ---
 
-## [4:00 – 5:30] Slide / Section 4: Task 3 — Object Recognition (Viola–Jones vs YOLO)
+## 🎬 [2:30 – 4:00] Section 3: Task 2 — Feature Extraction and Matching (Unit 4)
 
-**What to show on screen:**
-*Open `outputs/task3_object_recognition/fig1_detection_comparison_montage.png`.*
+**📺 What to show on screen:**
+Open `outputs/task2_feature_extraction/fig1_hog_visualization.png` and `fig3_matching_comparison_summary.png`.
 
-**What to say:**
-> *"In Task 3, we compare two historical milestones of object recognition: the classical Viola–Jones algorithm from 2001 against the modern deep learning YOLOv8 architecture from Ultralytics.*
+**🗣️ Spoken Script:**
+> "Task 2 investigates local and structural feature descriptors from Unit 4.
 >
-> *Viola–Jones uses rectangular Haar-like features computed in constant time via an Integral Image, followed by AdaBoost to select features arranged in an attentional cascade.*
-> *In contrast, YOLOv8 is a single-stage deep convolutional neural network with a CSPDarknet backbone, a PANet feature pyramid, and an anchor-free decoupled head.*
+> **Histogram of Oriented Gradients (HOG):**
+> HOG computes 9-bin gradient orientation histograms within 8x8 pixel cells, normalized across 2x2 block groups. In my photo, HOG extracted a feature vector of **489,168 values**. The inferno-colored visualization on screen highlights the dominant edge orientations of the objects in the scene.
 >
-> *Here are the key practical differences we observed:*
-> 1. *Class Coverage: Viola–Jones is strictly specialized for frontal human faces. YOLOv8 detects 80 everyday categories, including persons, laptops, bottles, and chairs.*
-> 2. *Confidence Calibration: Classical Haar cascades output a binary decision—face or no face. YOLOv8 outputs calibrated continuous confidence scores (for example, laptop at 0.88 and person at 0.89).*
-> 3. *Real Failure Case Analysis: When I tilted the face beyond 20 degrees or introduced side lighting, the Haar cascade failed to detect the face because its rigid rectangle templates were violated. YOLOv8, however, detected tilted poses effortlessly, though its confidence dropped when objects were heavily occluded.*
+> **Scale-Invariant Feature Transform (SIFT):**
+> SIFT detects stable interest points across a Difference-of-Gaussians scale space, assigns a canonical dominant orientation, and builds a 128-dimensional descriptor for each keypoint.
 >
-> *This clearly demonstrates the leap from hand-crafted geometric heuristics to deep hierarchical representation learning."*
+> I detected **2,000 keypoints** across both photos and matched them using **Lowe's Ratio Test** with a threshold of 0.75, backed by **RANSAC homography estimation**.
+>
+> - On the original scene pair, SIFT achieved **220 good matches with 111 RANSAC inliers (50.5% inlier ratio)**.
+> - To rigorously verify invariance, I rotated the second photo by 35 degrees and scaled it down to 0.8x.
+> - Remarkably, SIFT maintained **219 good matches and 106 inliers (48.4% inlier ratio)**.
+>
+> This demonstrates that SIFT reliably preserves matching fidelity despite significant scale and rotational variations."
 
 ---
 
-## [5:30 – 7:00] Slide / Section 5: Task 4 — Video Motion Estimation
+## 🎬 [4:00 – 5:30] Section 4: Task 3 — Object Recognition (Unit 5)
 
-**What to show on screen:**
-*Open `outputs/task4_motion_estimation/fig1_motion_estimation_comparison_grid.png`.*
+**📺 What to show on screen:**
+Open `outputs/task3_object_recognition/fig1_detection_comparison_montage.png`.
 
-**What to say:**
-> *"In Task 4, we analyze video motion dynamics using three complementary approaches on my self-recorded 20-second video:*
+**🗣️ Spoken Script:**
+> "Task 3 presents a comparative study between two milestones in computer vision: the classical Viola–Jones detector from 2001 and the modern Ultralytics YOLOv8 deep learning network.
 >
-> 1. *Temporal Consecutive Frame Differencing: We subtract frame t-1 from frame t. It is extremely fast, but it suffers from the classic aperture problem: when an object moves, only its leading and trailing edges appear, and when an object pauses, the motion mask disappears entirely.*
-> 2. *Gaussian Mixture Model Background Subtraction (OpenCV MOG2): Here, each background pixel is modeled as a mixture of 3 to 5 Gaussians. It dynamically adapts to gradual lighting changes and accurately segments the full silhouette of moving objects while filtering out shadows.*
-> 3. *Lucas–Kanade Optical Flow: Based on the brightness constancy assumption, LK solves the gradient constraint equation using least squares over Shi-Tomasi corners. On screen, you can see the sparse motion vector arrows pointing in the exact direction of travel, with arrow lengths proportional to pixel velocity.*
-> 4. *We also generated the Dense Farneback Optical Flow field visualized using an HSV color wheel, where hue represents motion direction and brightness represents speed.*
+> **Viola–Jones (Haar Cascade):**
+> Viola–Jones uses rectangular Haar-like features computed in constant time via an Integral Image, selected by AdaBoost in an attentional cascade.
+> - On my photo, it successfully detected **2 frontal faces**, highlighted with blue bounding boxes.
+> - Its limitation is rigid feature templates: when a face is tilted beyond 20 degrees or under asymmetric lighting, it fails completely, and it provides no continuous confidence score.
 >
-> *While frame differencing and GMM provide spatial presence masks, optical flow is uniquely capable of computing true velocity vectors $(\Delta x, \Delta y)$ needed for trajectory prediction and tracking."*
+> **Ultralytics YOLOv8 (Deep Learning):**
+> YOLOv8 is a single-stage anchor-free convolutional architecture that detects across 80 MS COCO classes with calibrated continuous confidence probabilities.
+> - It accurately localized **3 objects** with bounding boxes and high confidence scores.
+>
+> This illustrates the paradigm shift from handcrafted heuristic filters to deep hierarchical representation learning."
 
 ---
 
-## [7:00 – 7:30] Slide / Section 6: Execution & Conclusion
+## 🎬 [5:30 – 7:00] Section 5: Task 4 — Video Motion Estimation (Unit 5)
 
-**What to show on screen:**
-*Show the terminal running `python main.py` or the test suite passing all 19 unit tests.*
+**📺 What to show on screen:**
+Open `outputs/task4_motion_estimation/fig1_motion_estimation_comparison_grid.png`, `08_lucas_kanade_motion_vectors.png`, and `09_dense_optical_flow_hsv.png`.
 
-**What to say:**
-> *"To ensure code quality and reproducibility, the entire project is organized into clean, modular Python scripts with comprehensive input validation. Our test suite includes 19 automated unit tests verifying all mathematical formulas, PSNR/SSIM metrics, and image transformations.*
+**🗣️ Spoken Script:**
+> "Task 4 evaluates spatio-temporal dynamics on my self-recorded video using four complementary motion estimation methods:
 >
-> *All source code is committed to my GitHub repository, and the large original video file has been shared via Google Drive with Prof. Rahul Inchal.*
+> 1. **Temporal Frame Differencing:** Subtracting adjacent frames detected **6 motion clusters**. It is fast, but suffers from the ghosting problem: when a moving object stops, its mask disappears immediately.
+> 2. **Gaussian Mixture Model (GMM MOG2):** Models each background pixel with 3 to 5 Gaussians, isolating moving foreground silhouettes while filtering out dynamic shadows.
+> 3. **Lucas–Kanade Sparse Optical Flow:** Solves the brightness constancy constraint over Shi-Tomasi corners. On screen, the yellow arrow vectors indicate motion direction and velocity. It tracked **215 motion vectors with an average speed of 2.64 pixels per frame**.
+> 4. **Dense Farneback Optical Flow:** Computes a continuous per-pixel flow field visualized via an HSV color wheel, where hue encodes motion angle and brightness represents speed.
 >
-> *Thank you very much for your time and guidance throughout this semester!"*
+> While frame differencing and GMM supply spatial detection masks, optical flow provides true velocity vectors essential for tracking and trajectory forecasting."
+
+---
+
+## 🎬 [7:00 – 7:30] Section 6: Conclusion
+
+**📺 What to show on screen:**
+Show the terminal running `python main.py --validate` or the GitHub repository page.
+
+**🗣️ Spoken Script:**
+> "In conclusion, this project implemented and verified the full pipeline of computer vision:
+> - Restoration and morphological segmentation in Unit 3,
+> - HOG and SIFT invariant feature matching in Unit 4,
+> - Classical versus deep learning detection in Unit 5, and
+> - Multi-algorithm motion estimation in Unit 5.
+>
+> All code is pushed to my GitHub repository at `github.com/Yash-Ranpariya/cv-`, and the video recording has been shared on Google Drive with Prof. Rahul Inchal.
+>
+> Thank you very much for your time and guidance."
