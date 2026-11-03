@@ -15,10 +15,10 @@ An end-to-end, reproducible practical coding assignment implementing core Comput
 - **Subject**: Computer Vision (Continuous Assessment — CCA 3)
 - **Institution**: School of Computer Engineering and Technology, MIT World Peace University (MIT-WPU), Pune
 - **Faculty Coordinator**: Prof. Rahul Inchal (`rahul.inchal.inchal24@gmail.com`, `rahul.inchal.vf@mitwpu.edu.in`)
-- **Student Name**: `[ENTER YOUR FULL NAME]`
-- **PRN / Roll Number**: `[ENTER YOUR ROLL NO / PRN]`
-- **GitHub Repository**: `[ENTER GITHUB REPOSITORY URL]`
-- **Project Explanation Video (Drive)**: `[ENTER GOOGLE DRIVE URL]`
+- **Student Name**: `Yash Ranpariya`
+- **PRN / Roll Number**: `272251066`
+- **GitHub Repository**: `https://github.com/Yash-Ranpariya/cv-`
+- **Project Explanation Video (Drive)**: `https://drive.google.com/`
 
 ---
 

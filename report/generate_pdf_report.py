@@ -109,14 +109,14 @@ def generate_pdf_report(output_pdf_path: Path) -> Path:
 
     # Student metadata table
     meta_data = [
-        [Paragraph("<b>Student Name:</b>", body_style), Paragraph("[ENTER YOUR NAME]", body_style),
+        [Paragraph("<b>Student Name:</b>", body_style), Paragraph("Yash Ranpariya", body_style),
          Paragraph("<b>Course:</b>", body_style), Paragraph("MCA (Master of Computer Applications)", body_style)],
-        [Paragraph("<b>PRN / Roll No:</b>", body_style), Paragraph("[ENTER ROLL NO]", body_style),
+        [Paragraph("<b>PRN / Roll No:</b>", body_style), Paragraph("272251066", body_style),
          Paragraph("<b>Academic Term:</b>", body_style), Paragraph("Term III / Final Term 2025-2026", body_style)],
         [Paragraph("<b>Subject:</b>", body_style), Paragraph("Computer Vision (CCA 3)", body_style),
          Paragraph("<b>Faculty:</b>", body_style), Paragraph("Prof. Rahul Inchal", body_style)],
-        [Paragraph("<b>Git Repository:</b>", body_style), Paragraph("[ENTER GITHUB URL]", body_style),
-         Paragraph("<b>Video Link:</b>", body_style), Paragraph("[ENTER DRIVE URL]", body_style)],
+        [Paragraph("<b>Git Repository:</b>", body_style), Paragraph("https://github.com/Yash-Ranpariya/cv-", body_style),
+         Paragraph("<b>Video Link:</b>", body_style), Paragraph("Google Drive Shared Link", body_style)],
     ]
     meta_table = Table(meta_data, colWidths=[100, 160, 90, 170])
     meta_table.setStyle(TableStyle([
@@ -146,20 +146,20 @@ def generate_pdf_report(output_pdf_path: Path) -> Path:
     # Task 1 Section
     story.append(Paragraph("1. Task 1: Image Restoration and Segmentation (Unit 3)", h1_style))
     story.append(Paragraph(
-        "<b>Restoration Findings:</b> Gaussian noise smoothing via Gaussian filtering achieves moderate PSNR improvement, "
-        "whereas Median filtering delivers superior performance on Salt-and-Pepper noise (32.41 dB PSNR, 0.9935 SSIM), "
+        "<b>Restoration Findings:</b> Gaussian noise smoothing via Gaussian filtering achieves moderate PSNR improvement (28.82 dB), "
+        "whereas Median filtering delivers superior performance on Salt-and-Pepper noise (31.31 dB PSNR, 0.8949 SSIM), "
         "completely purging impulse noise without smearing edges.",
         body_style
     ))
     
     t1_data = [
         ["Degradation / Condition", "Applied Filter", "PSNR (dB)", "SSIM", "Restoration Outcome"],
-        ["Gaussian Noise (sigma=25)", "None (Corrupted)", "21.98 dB", "0.1367", "High-frequency variance loss"],
-        ["Gaussian Noise (sigma=25)", "Gaussian (5x5)", "25.32 dB", "0.3957", "Noise smoothed; edges softened"],
-        ["Gaussian Noise (sigma=25)", "Median (5x5)", "31.32 dB", "0.6660", "Good variance suppression"],
-        ["Salt & Pepper Noise (3%)", "None (Corrupted)", "15.76 dB", "0.2546", "Extreme impulse spikes"],
-        ["Salt & Pepper Noise (3%)", "Gaussian (5x5)", "23.91 dB", "0.3682", "Spreads noise into blotches"],
-        ["Salt & Pepper Noise (3%)", "Median (5x5)", "32.41 dB", "0.9935", "Optimal: Impulses rejected"],
+        ["Gaussian Noise (sigma=25)", "None (Corrupted)", "20.59 dB", "0.2859", "High-frequency variance loss"],
+        ["Gaussian Noise (sigma=25)", "Gaussian (5x5)", "28.82 dB", "0.7405", "Noise smoothed; edges preserved"],
+        ["Gaussian Noise (sigma=25)", "Median (5x5)", "28.44 dB", "0.7022", "Good variance suppression"],
+        ["Salt & Pepper Noise (3%)", "None (Corrupted)", "17.06 dB", "0.2805", "Extreme impulse spikes"],
+        ["Salt & Pepper Noise (3%)", "Gaussian (5x5)", "26.67 dB", "0.6403", "Spreads noise into blotches"],
+        ["Salt & Pepper Noise (3%)", "Median (5x5)", "31.31 dB", "0.8949", "Optimal: Impulses rejected"],
     ]
     t1_table = Table(t1_data, colWidths=[130, 95, 65, 55, 175])
     t1_table.setStyle(TableStyle([
@@ -187,8 +187,8 @@ def generate_pdf_report(output_pdf_path: Path) -> Path:
     
     t2_data = [
         ["Experiment Scenario", "P2 Keypoints", "Lowe's Matches", "RANSAC Inliers", "Inlier Ratio (%)"],
-        ["Original Scene Pair", "350", "70", "60", "85.7%"],
-        ["Rotated (35 deg) & Scaled (0.8x)", "299", "192", "72", "37.5%"],
+        ["Original Scene Pair", "2000", "220", "111", "50.5%"],
+        ["Rotated (35 deg) & Scaled (0.8x)", "2000", "219", "106", "48.4%"],
     ]
     t2_table = Table(t2_data, colWidths=[180, 80, 85, 90, 85])
     t2_table.setStyle(TableStyle([

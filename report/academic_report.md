@@ -8,11 +8,11 @@
 - **Subject**: Computer Vision (Practical Coding Assignment — CCA 3)
 - **Institution**: School of Computer Engineering and Technology, MIT World Peace University (MIT-WPU), Pune
 - **Faculty Coordinator**: Prof. Rahul Inchal (`rahul.inchal.inchal24@gmail.com`, `rahul.inchal.vf@mitwpu.edu.in`)
-- **Student Name**: `[ENTER YOUR FULL NAME HERE]`
-- **PRN / Roll Number**: `[ENTER YOUR ROLL NO / PRN HERE]`
+- **Student Name**: `Yash Ranpariya`
+- **PRN / Roll Number**: `272251066`
 - **Academic Year**: 2025–2026
-- **GitHub Repository**: `[ENTER YOUR GITHUB REPO URL HERE]`
-- **Project Explanation Video (Google Drive)**: `[ENTER YOUR VIDEO DRIVE URL HERE]`
+- **GitHub Repository**: `https://github.com/Yash-Ranpariya/cv-`
+- **Project Explanation Video (Google Drive)**: `https://drive.google.com/`
 
 ---
 
@@ -198,12 +198,12 @@ Approximates each neighborhood with quadratic polynomials to calculate a continu
 
 | Condition / Filter Applied | PSNR (dB) | SSIM | Restoration Assessment |
 |---|---|---|---|
-| **Gaussian Noise ($\sigma=25$)** | **21.98 dB** | **0.1367** | Severe high-frequency variance degradation |
-| Gaussian Noise + Gaussian Filter ($5 \times 5, \sigma=1.2$) | 25.32 dB | 0.3957 | Smooths noise; moderate edge blur |
-| Gaussian Noise + Median Filter ($5 \times 5$) | 31.32 dB | 0.6660 | High suppression; good contrast recovery |
-| **Salt & Pepper Noise ($3\%$)** | **15.76 dB** | **0.2546** | High-contrast impulse corruption |
-| Salt & Pepper + Gaussian Filter ($5 \times 5, \sigma=1.2$) | 23.91 dB | 0.3682 | Ineffective: smears salt/pepper into cloudy patches |
-| Salt & Pepper + Median Filter ($5 \times 5$) | **32.41 dB** | **0.9935** | **Optimal**: completely purges impulse spikes with near-perfect fidelity |
+| **Gaussian Noise ($\sigma=25$)** | **20.59 dB** | **0.2859** | Severe high-frequency variance degradation |
+| Gaussian Noise + Gaussian Filter ($5 \times 5, \sigma=1.2$) | 28.82 dB | 0.7405 | Smooths noise; strong fidelity recovery |
+| Gaussian Noise + Median Filter ($5 \times 5$) | 28.44 dB | 0.7022 | High suppression; good contrast recovery |
+| **Salt & Pepper Noise ($3\%$)** | **17.06 dB** | **0.2805** | High-contrast impulse corruption |
+| Salt & Pepper + Gaussian Filter ($5 \times 5, \sigma=1.2$) | 26.67 dB | 0.6403 | Ineffective: smears salt/pepper into cloudy patches |
+| Salt & Pepper + Median Filter ($5 \times 5$) | **31.31 dB** | **0.8949** | **Optimal**: completely purges impulse spikes with high fidelity |
 
 #### Visual Output References (Saved in `outputs/task1_restoration_segmentation/`):
 - `fig1_noise_comparison.png`: Original Reference vs Gaussian Noisy vs Salt-and-Pepper Noisy.
@@ -221,8 +221,8 @@ Approximates each neighborhood with quadratic polynomials to calculate a continu
 
 | Experiment Setup | Keypoints Detected (P2) | Lowe's Good Matches | RANSAC Inlier Matches | Inlier Ratio (%) |
 |---|---|---|---|---|
-| **Original Scene Pair** | ~350 | 70 | 60 | **85.7%** |
-| **Transformed Scene ($35^\circ$ Rotated + $0.8\times$ Scaled)** | ~299 | 192 | 72 | **37.5%** |
+| **Original Scene Pair** | 2000 | 220 | 111 | **50.5%** |
+| **Transformed Scene ($35^\circ$ Rotated + $0.8\times$ Scaled)** | 2000 | 219 | 106 | **48.4%** |
 
 #### Invariance Analysis:
 - **Scale Invariance**: SIFT builds an octave-based scale space using Difference-of-Gaussians, enabling stable extrema detection regardless of zoom distance.
