@@ -47,20 +47,26 @@ FONT_SMALL = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 16)
 FONT_BADGE = ImageFont.truetype("C:/Windows/Fonts/arialbd.ttf", 18)
 
 
+from gtts import gTTS
+
 def generate_audio(text: str, output_wav: Path) -> float:
-    """Generate audio file via SAPI5 and return its duration in seconds."""
-    speaker = win32com.client.Dispatch("SAPI.SpVoice")
-    stream = win32com.client.Dispatch("SAPI.SpFileStream")
+    """Generate authentic Indian English voice narration via Google TTS (tld='co.in')."""
+    ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+    temp_mp3 = output_wav.with_suffix(".mp3")
     
-    # Set speech rate (-10 to 10; 0 is normal, 1 is slightly brisker, -1 is relaxed)
-    speaker.Rate = 0
-    speaker.Volume = 100
+    # Generate Indian English accent speech
+    tts = gTTS(text=text, lang="en", tld="co.in", slow=False)
+    tts.save(str(temp_mp3))
     
-    stream.Open(str(output_wav), 3, False)  # SSFMCreateForWrite = 3
-    speaker.AudioOutputStream = stream
-    speaker.Speak(text)
-    stream.Close()
-    
+    # Convert mp3 to standard wav for exact duration measurement
+    subprocess.run(
+        [ffmpeg_exe, "-y", "-i", str(temp_mp3), str(output_wav)],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    if temp_mp3.exists():
+        temp_mp3.unlink()
+        
     with wave.open(str(output_wav), "r") as wf:
         frames = wf.getnframes()
         rate = wf.getframerate()
@@ -695,3 +701,4 @@ def render_presentation_video():
 
 if __name__ == "__main__":
     render_presentation_video()
+

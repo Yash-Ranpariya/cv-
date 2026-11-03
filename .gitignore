@@ -25,6 +25,7 @@ dataset/*.mkv
 *.mp4
 *.avi
 *.mov
+!CCA3_Presentation_Yash_Ranpariya.mp4
 
 # IDE & OS files
 .vscode/
